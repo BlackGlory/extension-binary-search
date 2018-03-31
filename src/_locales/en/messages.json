@@ -1,0 +1,59 @@
+{
+  "manifest_name": {
+    "message": "Extension Binary Search"
+  }
+, "manifest_description": {
+    "message": "The simplest and most effective way to locate a malicious or faulty extension."
+  }
+, "ui_info": {
+    "message": "This extension is used to assist in locating malicious or faulty extensions. After you start your search, the following steps are performed:"
+  }
+, "ui_info_step1": {
+    "message": "Disable half of enabled extensions."
+  }
+, "ui_info_step2": {
+    "message": "Ask if the extension you are looking for is still running and further narrow your search based on the results."
+  }
+, "ui_info_step3": {
+    "message": "Cycle steps 1 and 2 until there is only one extension."
+  }
+, "ui_search": {
+    "message": "Start Search"
+  }
+, "ui_exception": {
+    "message": "Exception"
+  }
+, "ui_checklist": {
+    "message": "Search items"
+  }
+, "ui_exceptions": {
+    "message": "Excluded items"
+  }
+, "notification_zero": {
+    "message": "The number of searchable extensions is zero."
+  }
+, "notification_confirm": {
+    "message": "Please manually test whether the extension you are searching for is still running. Select the corresponding option based on the result."
+  }
+, "notification_still_running": {
+    "message": "Still running"
+  }
+, "notification_not_running": {
+    "message": "Not running"
+  }
+, "notification_result": {
+    "message": "The search result is"
+  }
+, "notification_end": {
+    "message": "End"
+  }
+, "notification_recovering": {
+    "message": "Recovering"
+  }
+, "notification_closing": {
+    "message": "Closing"
+  }
+, "notification_unkown_error": {
+    "message": "An unknown error has occurred"
+  }
+}

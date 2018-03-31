@@ -1,0 +1,35 @@
+{
+  "name": "extension-binary-search",
+  "version": "1.0.0",
+  "repository": "git@github.com:BlackGlory/extension-binary-search.git",
+  "author": "BlackGlory <woshenmedoubuzhidao@blackglory.me>",
+  "license": "MIT",
+  "scripts": {
+    "precommit": "yarn lint",
+    "lint": "tslint -t codeFrame 'src/**/*.ts'",
+    "build": "webpack --config webpack.prod.js",
+    "dev": "webpack -w --config webpack.dev.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.63",
+    "@types/react": "^16.1.0",
+    "@types/react-dom": "^16.0.4",
+    "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.5.1",
+    "ts-loader": "^4.1.0",
+    "tslint": "^5.9.1",
+    "typescript": "^2.8.1",
+    "uglifyjs-webpack-plugin": "^1.2.4",
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13",
+    "webpack-merge": "^4.1.2"
+  },
+  "dependencies": {
+    "extra-promise": "^0.3.4",
+    "immer": "^1.2.1",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
+    "styled-components": "^3.2.5"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS"
+  , "target": "ESNext"
+  , "strict": true
+  , "removeComments": true
+  , "sourceMap": true
+  , "jsx": "react"
+  }
+, "exclude": [
+    "dist"
+  , "node_modules"
+  ]
+}
