@@ -1,4 +1,4 @@
-# Extension Binary Search [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/pokongmehfnlmmkgppngbmagkpamckgi.svg?maxAge=86400)](https://chrome.google.com/webstore/detail/extension-binary-search/pokongmehfnlmmkgppngbmagkpamckgi) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/BlackGlory/Extension Binary Search/master/LICENSE)
+# Extension Binary Search [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/pokongmehfnlmmkgppngbmagkpamckgi.svg?maxAge=86400)](https://chrome.google.com/webstore/detail/extension-binary-search/pokongmehfnlmmkgppngbmagkpamckgi) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/BlackGlory/extension-binary-search/master/LICENSE)
 
 [![Extension Binary Search](https://raw.githubusercontent.com/BlackGlory/extension-binary-search/master/src/assets/images/icon-128.png)](https://chrome.google.com/webstore/detail/extension-binary-search/pokongmehfnlmmkgppngbmagkpamckgi)
 
