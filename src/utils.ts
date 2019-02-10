@@ -12,12 +12,12 @@ export function promisify<T>(fn: (...args: any[]) => any) {
 }
 
 export async function readExceptionsConfig(): Promise<ExtensionInfoLite[]> {
-  const items = await promisify<{ [key: string]: any }>(chrome.storage.sync.get)(['exceptions'])
+  const items = await promisify<{ [key: string]: any }>(chrome.storage.sync.get.bind(chrome.storage.sync))(['exceptions'])
   return items.exceptions || []
 }
 
 export async function writeExceptionsConfig(exceptions: ExtensionInfoLite[]) {
-  await promisify(chrome.storage.sync.set)({ exceptions })
+  await promisify(chrome.storage.sync.set.bind(chrome.storage.sync))({ exceptions })
 }
 
 export function getAllExtensions() {
