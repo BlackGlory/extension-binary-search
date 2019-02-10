@@ -1,6 +1,6 @@
 {
   "manifest_name": {
-    "message": "扩展程序二分搜索"
+    "message": "二分法排查扩展程序"
   }
 , "manifest_description": {
     "message": "最简单也最有效的定位一个恶意或出错的扩展程序的方法."
