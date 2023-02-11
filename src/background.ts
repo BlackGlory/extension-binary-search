@@ -24,7 +24,7 @@ async function disable(id: string): Promise<void> {
 
 async function search(): Promise<void> {
   // Save
-  const excludeExtensions = await loadExcludedExtensions()
+  const excludeExtensions = loadExcludedExtensions()
   const currentExtensions = (await getAllControllableExtensions())
     .filter(x => x.enabled)
     .filter(({ id }) => !excludeExtensions.find(x => x.id === id))

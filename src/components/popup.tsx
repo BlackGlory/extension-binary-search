@@ -65,17 +65,17 @@ export function Popup() {
 
   useMount(() => {
     go(async () => {
-      const exceptions = await loadExcludedExtensions()
+      const excludeExtensions = loadExcludedExtensions()
       const controllableExtensions = (await getAllControllableExtensions())
         .map(x => ({ id: x.id, name: x.name })) as IExtension[]
 
       setExcludedExtensions(
-        exceptions
+        excludeExtensions
           .filter(({ id }) => controllableExtensions.find(x => x.id === id))
       )
       setIncludedExtensions(
         controllableExtensions
-          .filter(({ id }) => !exceptions.find(x => x.id === id))
+          .filter(({ id }) => !excludeExtensions.find(x => x.id === id))
       )
     })
   })
@@ -136,7 +136,7 @@ export function Popup() {
     </Window>
   )
 
-  async function moveIncludedToExcluded(): Promise<void> {
+  function moveIncludedToExcluded(): void {
     const includedSelectedOptions = toArray(includedSelect.current!.selectedOptions)
 
     setIncludedExtensions(
@@ -150,16 +150,16 @@ export function Popup() {
         .map(({ label, value }) => ({ name: label, id: value }))
     ]
     setExcludedExtensions(newExcludedExtensions)
-
-    await saveExcludedExtensions(newExcludedExtensions)
+    saveExcludedExtensions(newExcludedExtensions)
   }
 
-  async function moveExcludedToIncluded(): Promise<void> {
+  function moveExcludedToIncluded(): void {
     const excludedSelectedOptions = toArray(excludedSelect.current!.selectedOptions)
 
     const newExcludedExtensions = excludedExtensions
       .filter(({ id }) => !excludedSelectedOptions.find(x => x.value === id))
     setExcludedExtensions(newExcludedExtensions)
+    saveExcludedExtensions(newExcludedExtensions)
 
     const newIncludedExtensions: IExtension[] = [
       ...includedExtensions
@@ -167,8 +167,6 @@ export function Popup() {
         .map(({ label, value }) => ({ name: label, id: value }))
     ]
     setIncludedExtensions(newIncludedExtensions)
-
-    await saveExcludedExtensions(newExcludedExtensions)
   }
 
   async function search(): Promise<void> {
