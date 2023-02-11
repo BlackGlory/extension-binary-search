@@ -166,6 +166,21 @@
   resolved "https://registry.yarnpkg.com/@blackglory/pass/-/pass-1.1.0.tgz#f281b7647bf542f98ede594338742ab406f97afc"
   integrity sha512-J8epu3YVtfzP+VHJE5RR42bI0tAGBZ4nK8+0zAOfY8amw58ykWb2tUJD+N4l6SCpGZ/fQ5S6tQDl+qyNoOIhzg==
 
+"@blackglory/prelude@^0.1.8":
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/@blackglory/prelude/-/prelude-0.1.10.tgz#e1eb7672ffe9fba6edd445c398c8b972b4f607d1"
+  integrity sha512-I3C55RypseFi90W8qrC6hjwEdfKQoKV0+vz1DTImFF4BwOpBmcGFMCKH+I0X8EZUv7BK3mRL4OxDpdMnxba28g==
+  dependencies:
+    "@blackglory/errors" "^2.4.1"
+    "@blackglory/go" "^1.1.2"
+    "@blackglory/log" "^1.3.3"
+    "@blackglory/pass" "^1.1.0"
+    extra-lazy "^1.3.1"
+    extra-promise "^4.4.0"
+    extra-utils "^3.7.0"
+    iterable-operator "^2.5.0"
+    justypes "^3.1.2"
+
 "@blackglory/prelude@^0.2.0", "@blackglory/prelude@^0.2.2", "@blackglory/prelude@^0.2.4":
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/@blackglory/prelude/-/prelude-0.2.4.tgz#c938cf04f0e10e19b5a429fd8e9c67d8ed668271"
@@ -403,6 +418,15 @@
   dependencies:
     "@blackglory/errors" "^2.4.3"
     "@blackglory/prelude" "^0.2.2"
+
+"@delight-rpc/webextension@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@delight-rpc/webextension/-/webextension-0.1.0.tgz#9dfe416e3cef854c592ce49789dfc89986530a16"
+  integrity sha512-p+3jK+PDbp8oYnGcxYoFP1AeGhLSYT2Fb3cO/RN34ivqTQbRzLuPbUSqSbiwpu3W5Z/8wAHANoJ2Ff/ZBGppaw==
+  dependencies:
+    "@blackglory/prelude" "^0.1.8"
+    "@delight-rpc/protocol" "^3.0.0"
+    webextension-polyfill "^0.10.0"
 
 "@discoveryjs/json-ext@^0.5.0":
   version "0.5.7"
@@ -1782,7 +1806,7 @@ extra-timers@^0.2.5:
   dependencies:
     extra-rand "^0.1.1"
 
-extra-utils@^3.3.0, extra-utils@^3.4.0:
+extra-utils@^3.3.0, extra-utils@^3.4.0, extra-utils@^3.7.0:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/extra-utils/-/extra-utils-3.7.0.tgz#eed4cd1efeb1260bcd611e9294660f003d394793"
   integrity sha512-oknUj+tiacZHlvuTKhjmXCDXCaB8xzOlJMNVAH2211N1OVsXty09QhI+884oCmZaALIiyXAio1itDWmPfv9T4A==

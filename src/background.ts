@@ -4,7 +4,7 @@ import { each } from 'extra-promise'
 import { getAllManageableExtensions } from '@utils/extension'
 import { splitArrayInHalf } from '@utils/split-array-in-half'
 import { i18n } from '@utils/i18n'
-import { createTabClient, createServer } from '@utils/delight-rpc'
+import { createTabClient, createServer } from '@delight-rpc/webextension'
 import { IBackgroundAPI, IDialogAPI, IExtension } from '@src/contract'
 import { AbortController, withAbortSignal, AbortError } from 'extra-abort'
 
@@ -44,7 +44,7 @@ async function searchExtension(): Promise<null> {
       }
     })
   }))
-  const client = createTabClient<IDialogAPI>(tabId)
+  const client = createTabClient<IDialogAPI>({ tabId })
 
   const excludedExtensions = await loadExcludedExtensions()
   const includedExtensions = (await getAllManageableExtensions())

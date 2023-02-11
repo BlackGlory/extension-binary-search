@@ -4,7 +4,7 @@ import { useMount } from 'extra-react-hooks'
 import { go, toArray } from '@blackglory/prelude'
 import { getAllManageableExtensions } from '@utils/extension'
 import { i18n } from '@utils/i18n'
-import { createServiceWorkerClient } from '@utils/delight-rpc'
+import { createBackgroundClient } from '@delight-rpc/webextension'
 import { IBackgroundAPI, IExtension } from '@src/contract'
 
 const Window = styled.div`
@@ -55,7 +55,7 @@ const PrimaryButton = styled.button`
 `
 
 export function Popup() {
-  const client = useMemo(() => createServiceWorkerClient<IBackgroundAPI>(), [])
+  const client = useMemo(() => createBackgroundClient<IBackgroundAPI>(), [])
   const includedSelect = useRef<HTMLSelectElement>(null)
   const excludedSelect = useRef<HTMLSelectElement>(null)
   const [includedExtensions, setIncludedExtensions] = useState<IExtension[]>([])

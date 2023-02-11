@@ -42,6 +42,7 @@
     "@blackglory/prelude": "^0.3.1",
     "@blackglory/structures": "^0.13.1",
     "@delight-rpc/protocol": "^3.0.1",
+    "@delight-rpc/webextension": "^0.1.0",
     "delight-rpc": "^5.0.4",
     "extra-abort": "^0.3.1",
     "extra-promise": "^6.0.3",

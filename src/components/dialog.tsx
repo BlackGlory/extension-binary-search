@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill'
 import { useState } from 'react'
-import { createServer } from '@utils/delight-rpc'
+import { createServer } from '@delight-rpc/webextension'
 import { IDialogAPI } from '@src/contract'
 import { Blank } from '@components/blank'
 import { IMessageBoxProps, MessageBox } from '@components/message-box'
