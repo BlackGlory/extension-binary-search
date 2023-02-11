@@ -1,16 +1,12 @@
 const path = require('path')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   target: 'web'
-, node: {
-    fs: 'empty'
-  , module: 'empty'
-  }
 , entry: {
     'background': './src/background.ts'
-  , 'options': './src/options.tsx'
+  , 'popup': './src/popup/index.tsx'
   }
 , output: {
     path: path.join(__dirname, 'dist')
@@ -18,6 +14,7 @@ module.exports = {
   }
 , resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json']
+  , plugins: [new TsconfigPathsPlugin()]
   }
 , module: {
     rules: [
@@ -29,11 +26,16 @@ module.exports = {
     ]
   }
 , plugins: [
-    new CleanWebpackPlugin(['dist'])
-  , new CopyWebpackPlugin(
-      [
-        { from: './src', ignore: ['*.ts', '*.tsx'] }
+    new CopyPlugin({
+      patterns: [
+        {
+          from: './src'
+        , globOptions: {
+            ignore: ['**/*.ts', '**/*.tsx', '**/*.html', '**/manifest.*.json']
+          }
+        }
+      , { from: './src/popup/index.html', to: 'popup.html' }
       ]
-    )
+    })
   ]
 }

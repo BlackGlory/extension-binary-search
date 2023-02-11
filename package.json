@@ -1,35 +1,49 @@
 {
-  "name": "extension-binary-search",
-  "version": "1.0.2",
+  "private": true,
   "repository": "git@github.com:BlackGlory/extension-binary-search.git",
   "author": "BlackGlory <woshenmedoubuzhidao@blackglory.me>",
   "license": "MIT",
   "scripts": {
-    "precommit": "yarn lint",
-    "lint": "tslint -t codeFrame 'src/**/*.ts'",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx --quiet src",
+    "clean": "rimraf dist",
     "build": "webpack --config webpack.prod.js",
-    "dev": "webpack -w --config webpack.dev.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack --watch --config webpack.dev.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "run-s lint clean build",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   },
   "devDependencies": {
-    "@types/chrome": "^0.0.63",
-    "@types/react": "^16.1.0",
-    "@types/react-dom": "^16.0.4",
-    "clean-webpack-plugin": "^0.1.19",
-    "copy-webpack-plugin": "^4.5.1",
-    "ts-loader": "^4.1.0",
-    "tslint": "^5.9.1",
-    "typescript": "^2.8.1",
-    "uglifyjs-webpack-plugin": "^1.2.4",
-    "webpack": "^4.4.1",
-    "webpack-cli": "^2.0.13",
-    "webpack-merge": "^4.1.2"
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
+    "@types/chrome": "^0.0.212",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@types/styled-components": "^5.1.26",
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "eslint": "^8.33.0",
+    "husky": "^4.3.8",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "terser-webpack-plugin": "^5.3.6",
+    "ts-loader": "^9.4.2",
+    "tsconfig-paths-webpack-plugin": "^4.0.0",
+    "typescript": "4.8",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "extra-promise": "^0.3.4",
-    "immer": "^1.2.1",
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0",
-    "styled-components": "^3.2.5"
+    "@blackglory/prelude": "^0.3.1",
+    "extra-promise": "^6.0.3",
+    "extra-react-hooks": "^0.4.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-is": "^18.2.0",
+    "styled-components": "^5.3.6"
   }
 }

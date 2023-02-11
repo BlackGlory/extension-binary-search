@@ -1,38 +1,61 @@
-export interface ExtensionInfoLite {
+export interface IExtension {
   name: string
   id: string
 }
 
-export function promisify<T>(fn: (...args: any[]) => any) {
-  return (...args: any[]) => new Promise<T>((resolve, reject) => fn(...args, (result: T) =>
-    chrome.runtime.lastError
-  ? reject(chrome.runtime.lastError)
-  : resolve(result)
-  ))
+export function promisify<Args extends unknown[], Result>(
+  fn: (...args: [...Args, (result: Result) => void]) => void
+): (...args: Args) => Promise<Result> {
+  return function (...args: Args): Promise<Result> {
+    return new Promise((resolve, reject) => {
+      fn(...args, (result: Result) => {
+        if (chrome.runtime.lastError) {
+          reject(chrome.runtime.lastError)
+        } else {
+          resolve(result)
+        }
+      })
+    })
+  }
 }
 
-export async function readExceptionsConfig(): Promise<ExtensionInfoLite[]> {
-  const items = await promisify<{ [key: string]: any }>(chrome.storage.sync.get.bind(chrome.storage.sync))(['exceptions'])
+export async function loadExcludedExtensions(): Promise<IExtension[]> {
+  const items = await promisify(
+    chrome.storage.sync.get.bind(chrome.storage.sync)
+  )(['exceptions'])
+
   return items.exceptions || []
 }
 
-export async function writeExceptionsConfig(exceptions: ExtensionInfoLite[]) {
-  await promisify(chrome.storage.sync.set.bind(chrome.storage.sync))({ exceptions })
+export async function saveExcludedExtensions(
+  exceptions: IExtension[]
+): Promise<void> {
+  await promisify(chrome.storage.sync.set.bind(chrome.storage.sync))({
+    exceptions
+  })
 }
 
-export function getAllExtensions() {
-  // All installed extensions, apps, themes
-  return promisify<chrome.management.ExtensionInfo[]>(chrome.management.getAll)()
+export function getAllExtensions(): Promise<chrome.management.ExtensionInfo[]> {
+  // all installed extensions, apps, themes
+  return promisify(chrome.management.getAll)()
 }
 
-export async function getAllControllableExtensions() {
+export async function getAllControllableExtensions(): Promise<
+  chrome.management.ExtensionInfo[]
+> {
   return (await getAllExtensions())
-    .filter(x => ['extension', 'hosted_app'].includes(x.type)) // All extensions and apps
-    .filter(x => x.id !== chrome.runtime.id) // Except me
+    // all extensions and apps
+    .filter(x => ['extension', 'hosted_app'].includes(x.type))
+    // except this extension
+    .filter(x => x.id !== chrome.runtime.id)
 }
 
-export function confirm(text: string, button1Text: string, button2Text: string) {
-  const options = {
+export function confirm(
+  text: string
+, button1Text: string
+, button2Text: string
+): Promise<boolean> {
+  const options: chrome.notifications.NotificationOptions<true> = {
     type: 'basic'
   , title: ''
   , message: text
@@ -71,13 +94,17 @@ export function confirm(text: string, button1Text: string, button2Text: string) 
       chrome.notifications.onClosed.removeListener(closeHandler)
     }
 
-    const notificationId = await promisify(chrome.notifications.create)(options) as string
+    const notificationId = await promisify(chrome.notifications.create)(options)
     addListeners()
   })
 }
 
-export function alert(title: string = '', text: string, buttonText: string) {
-  const options = {
+export function alert(
+  title: string = ''
+, text: string
+, buttonText: string
+): Promise<void> {
+  const options: chrome.notifications.NotificationOptions<true> = {
     type: 'basic'
   , title
   , message: text
@@ -115,14 +142,17 @@ export function alert(title: string = '', text: string, buttonText: string) {
       chrome.notifications.onClosed.removeListener(closeHandler)
     }
 
-    const notificationId = await promisify(chrome.notifications.create)(options) as string
+    const notificationId = await promisify(chrome.notifications.create)(options)
     addListeners()
   })
 }
 
-export async function progress(value: number, text = '') {
+export async function progress(
+  value: number
+, text: string = ''
+): Promise<(value: number, text: string) => Promise<void>> {
   const progressValue = Math.round(value * 100)
-  const options = {
+  const options: chrome.notifications.NotificationOptions<true> = {
     type: 'progress'
   , title: ''
   , message: text
@@ -132,7 +162,7 @@ export async function progress(value: number, text = '') {
   , requireInteraction: true
   }
 
-  const notificationId = await promisify(chrome.notifications.create)(options) as string
+  const notificationId = await promisify(chrome.notifications.create)(options)
   return async (value: number, text: string) => {
     const progressValue = Math.round(value * 100)
     await promisify(chrome.notifications.update)(notificationId, {
@@ -146,9 +176,13 @@ export async function progress(value: number, text = '') {
   }
 }
 
-export function halfArray(arr: any[]) {
+export function splitArrayInHalf<T>(arr: T[]): [T[], T[]] {
   const index = Math.ceil(arr.length / 2)
   const arr1 = arr.slice(0, index)
   const arr2 = arr.slice(index)
   return [arr1, arr2]
+}
+
+export function i18n(messageName: string): string {
+  return chrome.i18n.getMessage(messageName)
 }

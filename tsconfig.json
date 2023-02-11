@@ -1,14 +1,21 @@
 {
   "compilerOptions": {
-    "module": "CommonJS"
-  , "target": "ESNext"
+    "target": "ES2018"
+  , "module": "ES2015"
+  , "moduleResolution": "Node"
+  , "jsx": "react-jsx"
+  , "allowSyntheticDefaultImports": true
   , "strict": true
   , "removeComments": true
-  , "sourceMap": true
-  , "jsx": "react"
+  , "noUnusedLocals": false
+  , "noUnusedParameters": false
+  , "baseUrl": "."
+  , "paths": {
+      "@src/*": ["src/*"]
+    , "@components/*": ["src/components/*"]
+    }
   }
-, "exclude": [
-    "dist"
-  , "node_modules"
+, "include": [
+    "src"
   ]
 }
