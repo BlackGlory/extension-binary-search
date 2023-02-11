@@ -10,19 +10,19 @@ import {
 , i18n
 } from './utils'
 
-async function setEnabled(id: string, enabled: boolean): Promise<void> {
+async function setExtensionEnabled(id: string, enabled: boolean): Promise<void> {
   await chrome.management.setEnabled(id, enabled)
 }
 
-async function enable(id: string): Promise<void> {
-  await setEnabled(id, true)
+async function enableExtension(id: string): Promise<void> {
+  await setExtensionEnabled(id, true)
 }
 
-async function disable(id: string): Promise<void> {
-  await setEnabled(id, false)
+async function disableExtension(id: string): Promise<void> {
+  await setExtensionEnabled(id, false)
 }
 
-async function search(): Promise<void> {
+async function searchExtension(): Promise<void> {
   // Save
   const excludeExtensions = loadExcludedExtensions()
   const currentExtensions = (await getAllControllableExtensions())
@@ -44,7 +44,7 @@ async function search(): Promise<void> {
 
       const progressTrigger = await progress(0)
       await each(testArr, async ({ id, name }, i) => {
-        await disable(id)
+        await disableExtension(id)
         await progressTrigger(
           (i + 1) / testArr.length
         , `${i18n('notification_closing')} ${name}`
@@ -64,7 +64,7 @@ async function search(): Promise<void> {
 
         const progressTrigger = await progress(0)
         await each(testArr, async ({ id, name }, i) => {
-          await enable(id)
+          await enableExtension(id)
           await progressTrigger(
             (i + 1) / testArr.length
           , `${i18n('notification_recovering')} ${name}`
@@ -88,7 +88,7 @@ async function search(): Promise<void> {
       )
     }
   } finally {
-    await each(currentExtensions, ({ id, enabled }) => setEnabled(id, enabled), 1)
+    await each(currentExtensions, ({ id, enabled }) => setExtensionEnabled(id, enabled), 1)
   }
 }
 
@@ -96,7 +96,7 @@ chrome.runtime.onMessage.addListener(
   async (method, sender, sendResponse): Promise<void> => {
     if (sender.id === chrome.runtime.id) {
       if (method === 'search') {
-        await search()
+        await searchExtension()
         sendResponse(true)
       }
     }
