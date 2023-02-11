@@ -7,6 +7,7 @@ module.exports = {
 , entry: {
     'background': './src/background.ts'
   , 'popup': './src/popup/index.tsx'
+  , 'dialog': './src/dialog/index.tsx'
   }
 , output: {
     path: path.join(__dirname, 'dist')
@@ -35,6 +36,7 @@ module.exports = {
           }
         }
       , { from: './src/popup/index.html', to: 'popup.html' }
+      , { from: './src/dialog/index.html', to: 'dialog.html' }
       ]
     })
   ]

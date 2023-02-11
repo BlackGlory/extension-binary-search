@@ -1,16 +1,15 @@
-import React, { useState, useRef } from 'react'
+import { useState, useRef, useMemo } from 'react'
 import styled from 'styled-components'
 import { useMount } from 'extra-react-hooks'
 import { go, toArray } from '@blackglory/prelude'
-import {
-  promisify
-, getAllControllableExtensions
-, saveExcludedExtensions
-, loadExcludedExtensions
-, IExtension
-, i18n
-} from '@src/utils'
-import { Window } from './window'
+import { getAllManageableExtensions } from '@utils/extension'
+import { i18n } from '@utils/i18n'
+import { createServiceWorkerClient } from '@utils/delight-rpc'
+import { IBackgroundAPI, IExtension } from '@src/contract'
+
+const Window = styled.div`
+  min-width: 400px;
+`
 
 const Info = styled.div`
   padding: 1em;
@@ -56,17 +55,17 @@ const PrimaryButton = styled.button`
 `
 
 export function Popup() {
+  const client = useMemo(() => createServiceWorkerClient<IBackgroundAPI>(), [])
+  const includedSelect = useRef<HTMLSelectElement>(null)
+  const excludedSelect = useRef<HTMLSelectElement>(null)
   const [includedExtensions, setIncludedExtensions] = useState<IExtension[]>([])
   const [excludedExtensions, setExcludedExtensions] = useState<IExtension[]>([])
   const [searching, setSearching] = useState<boolean>(false)
 
-  const includedSelect = useRef<HTMLSelectElement>(null)
-  const excludedSelect = useRef<HTMLSelectElement>(null)
-
   useMount(() => {
     go(async () => {
-      const excludeExtensions = loadExcludedExtensions()
-      const controllableExtensions = (await getAllControllableExtensions())
+      const excludeExtensions = await client.loadExcludedExtensions()
+      const controllableExtensions = (await getAllManageableExtensions())
         .map(x => ({ id: x.id, name: x.name })) as IExtension[]
 
       setExcludedExtensions(
@@ -136,7 +135,7 @@ export function Popup() {
     </Window>
   )
 
-  function moveIncludedToExcluded(): void {
+  async function moveIncludedToExcluded(): Promise<void> {
     const includedSelectedOptions = toArray(includedSelect.current!.selectedOptions)
 
     setIncludedExtensions(
@@ -150,16 +149,16 @@ export function Popup() {
         .map(({ label, value }) => ({ name: label, id: value }))
     ]
     setExcludedExtensions(newExcludedExtensions)
-    saveExcludedExtensions(newExcludedExtensions)
+
+    await client.saveExcludedExtensions(newExcludedExtensions)
   }
 
-  function moveExcludedToIncluded(): void {
+  async function moveExcludedToIncluded(): Promise<void> {
     const excludedSelectedOptions = toArray(excludedSelect.current!.selectedOptions)
 
     const newExcludedExtensions = excludedExtensions
       .filter(({ id }) => !excludedSelectedOptions.find(x => x.value === id))
     setExcludedExtensions(newExcludedExtensions)
-    saveExcludedExtensions(newExcludedExtensions)
 
     const newIncludedExtensions: IExtension[] = [
       ...includedExtensions
@@ -167,14 +166,15 @@ export function Popup() {
         .map(({ label, value }) => ({ name: label, id: value }))
     ]
     setIncludedExtensions(newIncludedExtensions)
+
+    await client.saveExcludedExtensions(newExcludedExtensions)
   }
 
   async function search(): Promise<void> {
-    const sendMessage = promisify(chrome.runtime.sendMessage)
-
     setSearching(true)
-
-    if (await sendMessage(chrome.runtime.id, 'search')) {
+    try {
+      await client.searchExtension()
+    } finally {
       setSearching(false)
     }
   }
