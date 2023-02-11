@@ -69,20 +69,8 @@ export function confirm(
   }
 
   return new Promise<boolean>(async (resolve, reject) => {
-    function buttonClickHandler(id: string, buttonIndex: number) {
-      if (id === notificationId) {
-        removeListeners()
-        chrome.notifications.clear(notificationId)
-        resolve(buttonIndex === 0)
-      }
-    }
-
-    function closeHandler(id: string) {
-      if (id === notificationId) {
-        removeListeners()
-        reject()
-      }
-    }
+    const notificationId = await promisify(chrome.notifications.create)(options)
+    addListeners()
 
     function addListeners() {
       chrome.notifications.onButtonClicked.addListener(buttonClickHandler)
@@ -94,8 +82,21 @@ export function confirm(
       chrome.notifications.onClosed.removeListener(closeHandler)
     }
 
-    const notificationId = await promisify(chrome.notifications.create)(options)
-    addListeners()
+    function buttonClickHandler(id: string, buttonIndex: number) {
+      if (id === notificationId) {
+        removeListeners()
+        chrome.notifications.clear(notificationId)
+        resolve(buttonIndex === 0)
+      }
+    }
+
+    function closeHandler(id: string) {
+      console.log(id, notificationId)
+      if (id === notificationId) {
+        removeListeners()
+        reject()
+      }
+    }
   })
 }
 
@@ -117,6 +118,19 @@ export function alert(
   }
 
   return new Promise<void>(async (resolve, reject) => {
+    const notificationId = await promisify(chrome.notifications.create)(options)
+    addListeners()
+
+    function addListeners() {
+      chrome.notifications.onButtonClicked.addListener(buttonClickHandler)
+      chrome.notifications.onClosed.addListener(closeHandler)
+    }
+
+    function removeListeners() {
+      chrome.notifications.onButtonClicked.removeListener(buttonClickHandler)
+      chrome.notifications.onClosed.removeListener(closeHandler)
+    }
+
     function buttonClickHandler(id: string, buttonIndex: number) {
       if (id === notificationId) {
         removeListeners()
@@ -131,19 +145,6 @@ export function alert(
         reject()
       }
     }
-
-    function addListeners() {
-      chrome.notifications.onButtonClicked.addListener(buttonClickHandler)
-      chrome.notifications.onClosed.addListener(closeHandler)
-    }
-
-    function removeListeners() {
-      chrome.notifications.onButtonClicked.removeListener(buttonClickHandler)
-      chrome.notifications.onClosed.removeListener(closeHandler)
-    }
-
-    const notificationId = await promisify(chrome.notifications.create)(options)
-    addListeners()
   })
 }
 
