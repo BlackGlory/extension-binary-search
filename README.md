@@ -1,11 +1,16 @@
-# Extension Binary Search [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/pokongmehfnlmmkgppngbmagkpamckgi.svg?maxAge=86400)](https://chrome.google.com/webstore/detail/extension-binary-search/pokongmehfnlmmkgppngbmagkpamckgi) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/BlackGlory/extension-binary-search/master/LICENSE)
-
-[![Extension Binary Search](https://raw.githubusercontent.com/BlackGlory/extension-binary-search/master/src/assets/images/icon-128.png)](https://chrome.google.com/webstore/detail/extension-binary-search/pokongmehfnlmmkgppngbmagkpamckgi)
+# Extension Binary Search
+![extension-binary-search-logo]
 
 The simplest and most effective way to locate a malicious or faulty extension.
 
-## Usage
+[extension-binary-search-logo]: src/assets/images/icon-128.png
 
+## Supported browsers and platforms
+- [x] [Chrome]
+
+[Chrome]: https://chrome.google.com/webstore/detail/pokongmehfnlmmkgppngbmagkpamckgi
+
+## Usage
 This extension is used to assist in locating malicious or faulty extensions. After you start your search, the following steps are performed:
 
 1. Disable half of enabled extensions.
