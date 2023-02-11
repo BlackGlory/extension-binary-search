@@ -29,6 +29,5 @@
 , "permissions": [
     "management"
   , "notifications"
-  , "storage"
   ]
 }

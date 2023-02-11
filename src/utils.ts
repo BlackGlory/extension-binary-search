@@ -1,3 +1,5 @@
+import { isntNull } from '@blackglory/prelude'
+
 export interface IExtension {
   name: string
   id: string
@@ -19,20 +21,16 @@ export function promisify<Args extends unknown[], Result>(
   }
 }
 
-export async function loadExcludedExtensions(): Promise<IExtension[]> {
-  const items = await promisify(
-    chrome.storage.sync.get.bind(chrome.storage.sync)
-  )(['exceptions'])
-
-  return items.exceptions || []
+const storageItemKey = 'excludedExtensions'
+export function loadExcludedExtensions(): IExtension[] {
+  const data = localStorage.getItem(storageItemKey)
+  return isntNull(data)
+       ? JSON.parse(data) as IExtension[]
+       : []
 }
 
-export async function saveExcludedExtensions(
-  exceptions: IExtension[]
-): Promise<void> {
-  await promisify(chrome.storage.sync.set.bind(chrome.storage.sync))({
-    exceptions
-  })
+export function saveExcludedExtensions(excludedExtensions: IExtension[]): void {
+  localStorage.setItem(storageItemKey, JSON.stringify(excludedExtensions))
 }
 
 export function getAllExtensions(): Promise<chrome.management.ExtensionInfo[]> {
