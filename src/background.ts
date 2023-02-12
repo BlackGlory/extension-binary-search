@@ -119,6 +119,7 @@ async function searchExtension(): Promise<null> {
       console.warn(e)
     }
   } finally {
+    await browser.tabs.remove(tabId)
     await each(
       includedExtensions
     , ({ id, enabled }) => setExtensionState(id, enabled)
