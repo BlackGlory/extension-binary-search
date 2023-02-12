@@ -53,9 +53,11 @@
     "extra-abort": "^0.3.1",
     "extra-promise": "^6.0.3",
     "extra-react-hooks": "^0.4.3",
+    "extra-utils": "^5.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
+    "semver": "^7.3.8",
     "webextension-polyfill": "^0.10.0"
   }
 }

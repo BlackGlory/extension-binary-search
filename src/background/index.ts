@@ -7,6 +7,14 @@ import { i18n } from '@utils/i18n'
 import { createTabClient, createServer } from '@delight-rpc/webextension'
 import { IBackgroundAPI, IDialogAPI, IExtension } from '@src/contract'
 import { AbortController, withAbortSignal, AbortError } from 'extra-abort'
+import { migrate } from './migrate'
+
+browser.runtime.onInstalled.addListener(async ({ reason, previousVersion }) => {
+  const currentVersion = browser.runtime.getManifest().version
+  if (reason === 'update' && previousVersion) {
+    await migrate(previousVersion, currentVersion)
+  }
+})
 
 const STORAGE_ITEM_KEY_EXCLUDED_EXTENSIONS = 'excludedExtensions'
 
