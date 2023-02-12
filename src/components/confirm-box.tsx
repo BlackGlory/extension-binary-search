@@ -15,22 +15,20 @@ export interface IConfirmBoxProps {
 export function ConfirmBox(props: IConfirmBoxProps) {
   const { title, text, button1Text, button2Text, onButton1Click, onButton2Click } = props
 
-  return (
-    <div className='h-full flex flex-col justify-between space-y-4'>
-      {isntUndefined(title) && <h1 className='text-lg font-semibold border-b'>{title}</h1>}
-      {isntUndefined(text) && <div>{text}</div>}
-      <div className='flex flex-row space-x-2'>
-        <div className='flex-1'>
-          <Button onClick={onButton1Click}>
-            {button1Text}
-          </Button>
-        </div>
-        <div className='flex-1'>
-          <Button onClick={onButton2Click}>
-            {button2Text}
-          </Button>
-        </div>
+  return <>
+    {isntUndefined(title) && <h1 className='text-lg font-semibold border-b'>{title}</h1>}
+    {isntUndefined(text) && <div>{text}</div>}
+    <div className='flex flex-row space-x-2'>
+      <div className='flex-1'>
+        <Button onClick={onButton1Click}>
+          {button1Text}
+        </Button>
+      </div>
+      <div className='flex-1'>
+        <Button onClick={onButton2Click}>
+          {button2Text}
+        </Button>
       </div>
     </div>
-  )
+  </>
 }

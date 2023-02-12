@@ -36,7 +36,7 @@ export function Dialog() {
   })
 
   return (
-    <div className='h-screen p-4 text-base'>
+    <div className='h-screen flex flex-col justify-between space-y-4 p-4 text-base'>
       {
         go(() => {
           switch (state.type) {
