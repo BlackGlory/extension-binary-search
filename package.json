@@ -18,7 +18,6 @@
   "devDependencies": {
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
-    "@types/chrome": "^0.0.212",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@types/webextension-polyfill": "^0.10.0",
@@ -56,7 +55,6 @@
     "extra-utils": "^5.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-is": "^18.2.0",
     "semver": "^7.3.8",
     "webextension-polyfill": "^0.10.0"
   }
