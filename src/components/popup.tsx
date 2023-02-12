@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo } from 'react'
+import React, { useState, useRef, useMemo } from 'react'
 import { useMount } from 'extra-react-hooks'
 import { go, toArray } from '@blackglory/prelude'
 import { getAllManageableExtensions } from '@utils/extension'
@@ -6,7 +6,7 @@ import { i18n } from '@utils/i18n'
 import { createBackgroundClient } from '@delight-rpc/webextension'
 import { IBackgroundAPI, IExtension } from '@src/contract'
 import { Button } from '@components/button'
-import React from 'react'
+import classNames from 'classnames'
 
 export function Popup() {
   const client = useMemo(() => createBackgroundClient<IBackgroundAPI>(), [])
@@ -149,7 +149,7 @@ const Select = React.forwardRef((
   return (
     <select
       {...props}
-      className={`border h-full w-full overflow-x-auto ${props.className ?? ''}`}
+      className={classNames('border h-full w-full overflow-x-auto', props.className)}
       ref={ref}
     />
   )
@@ -159,7 +159,7 @@ function Column(props: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       {...props}
-      className={`flex flex-col flex-1 ${props.className ?? ''}`}
+      className={classNames('flex flex-col flex-1', props.className)}
     />
   )
 }

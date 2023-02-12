@@ -46,8 +46,10 @@ async function searchExtension(): Promise<null> {
   }))
   const client = createTabClient<IDialogAPI>({ tabId })
 
-  const excludedExtensions = await loadExcludedExtensions()
-  const includedExtensions = (await getAllManageableExtensions())
+  const excludedExtensions: IExtension[] = await loadExcludedExtensions()
+  const includedExtensions: browser.Management.ExtensionInfo[] = (
+    await getAllManageableExtensions()
+  )
     .filter(x => x.enabled)
     .filter(({ id }) => !excludedExtensions.find(x => x.id === id))
 
@@ -60,7 +62,7 @@ async function searchExtension(): Promise<null> {
         })
       }
 
-      let restExtensions = includedExtensions
+      let restExtensions: IExtension[] = includedExtensions
         .map(x => ({ name: x.name, id: x.id }))
 
       while (restExtensions.length !== 1) {
