@@ -3,57 +3,57 @@
     "message": "Extension Binary Search"
   }
 , "manifest_description": {
-    "message": "The simplest and most effective way to locate a malicious or faulty extension."
+    "message": "The easiest and most effective way to locate a malicious or buggy extension."
   }
-, "ui_info": {
-    "message": "This extension is used to assist in locating malicious or faulty extensions. After you start your search, the following steps are performed:"
+, "ui_manual": {
+    "message": "This extension is used to assist in locating malicious or buggy extensions. After you click the Start button, the following steps will be performed."
   }
-, "ui_info_step1": {
+, "ui_manual_step1": {
     "message": "Disable half of enabled extensions."
   }
-, "ui_info_step2": {
-    "message": "Ask if the extension you are looking for is still running and further narrow your search based on the results."
+, "ui_manual_step2": {
+    "message": "It is up to you to manually test if the target extension is still running, and this extension will further narrow the search based on your feedback."
   }
-, "ui_info_step3": {
-    "message": "Cycle steps 1 and 2 until there is only one extension."
+, "ui_manual_step3": {
+    "message": "Cycle through steps 1 and 2 above until only one extension remains."
   }
-, "ui_search": {
-    "message": "Start Search"
+, "ui_search_button": {
+    "message": "Start"
   }
-, "ui_exception": {
-    "message": "Exception"
+, "ui_exclusion_description": {
+    "message": "Exclude extensions that you do not want to disable."
   }
-, "ui_checklist": {
-    "message": "Search items"
+, "ui_included_extensions": {
+    "message": "Extensions will be disabled:"
   }
-, "ui_exceptions": {
-    "message": "Excluded items"
+, "ui_excluded_extensions": {
+    "message": "Extensions will not be disabled:"
   }
-, "notification_zero": {
-    "message": "The number of searchable extensions is zero."
+, "dialog_no_extensions": {
+    "message": "There are no searchable extensions."
   }
-, "notification_confirm": {
-    "message": "Please manually test whether the extension you are searching for is still running. Select the corresponding option based on the result."
+, "dialog_confirm": {
+    "message": "Please test manually if the corresponding extension is still running and select the corresponding option according to the result."
   }
-, "notification_still_running": {
+, "dialog_still_running_button": {
     "message": "Still running"
   }
-, "notification_not_running": {
+, "dialog_not_running_button": {
     "message": "Not running"
   }
-, "notification_result": {
+, "dialog_result": {
     "message": "The search result is"
   }
-, "notification_end": {
+, "dialog_end": {
     "message": "End"
   }
-, "notification_recovering": {
-    "message": "Recovering"
+, "dialog_being_enabled": {
+    "message": "Extensions are being re-enabled."
   }
-, "notification_closing": {
-    "message": "Closing"
+, "dialog_being_disabled": {
+    "message": "Extensions are being disabled."
   }
-, "notification_unkown_error": {
+, "dialog_unkown_error": {
     "message": "An unknown error has occurred"
   }
 }

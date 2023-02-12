@@ -23,8 +23,8 @@ async function searchExtension(): Promise<null> {
   const window = await browser.windows.create({
     url: browser.runtime.getURL('dialog.html')
   , type: 'popup'
-  , width: 400
-  , height: 300
+  , width: 450
+  , height: 250
   })
   const tabId = window.tabs?.[0].id
   assert(isntUndefined(tabId), 'The dialog tab does not exist')
@@ -55,41 +55,43 @@ async function searchExtension(): Promise<null> {
     await withAbortSignal(signal, async () => {
       if (includedExtensions.length === 0) {
         return await client.message({
-          text: i18n('notification_zero')
-        , buttonText: i18n('notification_end')
+          text: i18n('dialog_no_extensions')
+        , buttonText: i18n('dialog_end')
         })
       }
 
-      let restExtensions = includedExtensions.map(x => ({ name: x.name, id: x.id }))
+      let restExtensions = includedExtensions
+        .map(x => ({ name: x.name, id: x.id }))
+
       while (restExtensions.length !== 1) {
-        const [groupA, groupB] = splitArrayInHalf(restExtensions)
+        const [extensionGroupA, extensionGroupB] = splitArrayInHalf(restExtensions)
 
         await client.progress({ value: 0 })
-        await each(groupA, async ({ id, name }, i) => {
+        await each(extensionGroupA, async ({ id, name }, i) => {
           await disableExtension(id)
           await client.progress({
-            text: `${i18n('notification_closing')} ${name}`
-          , value: (i + 1) / groupA.length
+            text: `${i18n('dialog_being_disabled')} ${name}`
+          , value: (i + 1) / extensionGroupA.length
           })
         }, 1)
 
         if (
           await client.confirm({
-            text: i18n('notification_confirm')
-          , button1Text: i18n('notification_still_running')
-          , button2Text: i18n('notification_not_running')
+            text: i18n('dialog_confirm')
+          , button1Text: i18n('dialog_still_running_button')
+          , button2Text: i18n('dialog_not_running_button')
           })
         ) {
-          restExtensions = groupB
+          restExtensions = extensionGroupB
         } else {
-          restExtensions = groupA
+          restExtensions = extensionGroupA
 
           await client.progress({ value: 0 })
-          await each(groupA, async ({ id, name }, i) => {
+          await each(extensionGroupA, async ({ id, name }, i) => {
             await enableExtension(id)
             await client.progress({
-              text: `${i18n('notification_recovering')} ${name}`
-            , value: (i + 1) / groupA.length
+              text: `${i18n('dialog_being_enabled')} ${name}`
+            , value: (i + 1) / extensionGroupA.length
             })
           }, 1)
         }
@@ -97,9 +99,9 @@ async function searchExtension(): Promise<null> {
 
       const target = restExtensions[0]
       await client.message({
-        title: i18n('notification_result')
+        title: i18n('dialog_result')
       , text: `${ includedExtensions.find(x => x.id === target.id)!.name }`
-      , buttonText: i18n('notification_end')
+      , buttonText: i18n('dialog_end')
       })
     })
   } catch (e) {
@@ -108,9 +110,9 @@ async function searchExtension(): Promise<null> {
 
       if (!(e instanceof AbortError)) {
         await withAbortSignal(signal, () => client.message({
-          title: i18n('notification_unkown_error')
+          title: i18n('dialog_unkown_error')
         , text: `${err.message}`
-        , buttonText: i18n('notification_end')
+        , buttonText: i18n('dialog_end')
         }))
       } else {
         console.warn(e)
@@ -119,12 +121,13 @@ async function searchExtension(): Promise<null> {
       console.warn(e)
     }
   } finally {
-    await browser.tabs.remove(tabId)
     await each(
       includedExtensions
     , ({ id, enabled }) => setExtensionState(id, enabled)
     , 1
     )
+    // 由于标签页可能被用户手动关闭, 调用有可能抛出错误, 所以放到最后执行.
+    await browser.tabs.remove(tabId)
   }
 
   return null

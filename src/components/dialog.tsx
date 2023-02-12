@@ -6,14 +6,8 @@ import { Blank } from '@components/blank'
 import { IMessageBoxProps, MessageBox } from '@components/message-box'
 import { IConfirmBoxProps, ConfirmBox } from '@components/confirm-box'
 import { IProgressProps, Progress } from '@components/progress'
-import styled from 'styled-components'
 import { go } from '@blackglory/prelude'
 import { useMount } from 'extra-react-hooks'
-
-const Window = styled.div`
-  min-width: 400px;
-  min-height: 300px;
-`
 
 enum DialogType {
   Blank
@@ -42,7 +36,7 @@ export function Dialog() {
   })
 
   return (
-    <Window>
+    <div className='h-screen p-4 text-base'>
       {
         go(() => {
           switch (state.type) {
@@ -61,7 +55,7 @@ export function Dialog() {
           }
         })
       }
-    </Window>
+    </div>
   )
 
   function confirm({ title, text, button1Text, button2Text }: {

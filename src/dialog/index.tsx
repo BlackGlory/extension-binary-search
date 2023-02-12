@@ -1,3 +1,4 @@
+import '@src/globals.css'
 import { createRoot } from 'react-dom/client'
 import { Dialog } from '@components/dialog'
 import { assert } from '@blackglory/prelude'

@@ -3,57 +3,57 @@
     "message": "二分法排查扩展程序"
   }
 , "manifest_description": {
-    "message": "最简单也最有效的定位一个恶意或出错的扩展程序的方法."
+    "message": "最简单也最有效的定位一个恶意的或出错的扩展程序的方法。"
   }
-, "ui_info": {
-    "message": "本扩展用于辅助定位恶意或出错的扩展程序, 在您开始搜索后, 会以以下步骤执行:"
+, "ui_manual": {
+    "message": "本扩展用于辅助定位恶意的或出错的扩展程序。在您点击开始按钮后，将执行以下步骤："
   }
-, "ui_info_step1": {
-    "message": "禁用半数已启用的扩展程序."
+, "ui_manual_step1": {
+    "message": "禁用半数已启用的扩展程序。"
   }
-, "ui_info_step2": {
-    "message": "询问你要寻找的扩展是否仍在运行, 根据结果进一步缩小搜索范围."
+, "ui_manual_step2": {
+    "message": "由您手动测试目标扩展程序是否仍在运行，此扩展会根据您的反馈来进一步缩小搜索范围。"
   }
-, "ui_info_step3": {
-    "message": "循环步骤1和2, 直到仅剩一个扩展程序."
+, "ui_manual_step3": {
+    "message": "循环上述步骤1和2，直到仅剩一个扩展程序。"
   }
-, "ui_search": {
-    "message": "开始搜索"
+, "ui_search_button": {
+    "message": "开始"
   }
-, "ui_exception": {
-    "message": "例外"
+, "ui_exclusion_description": {
+    "message": "排除掉你不想禁用的扩展程序。"
   }
-, "ui_checklist": {
-    "message": "可能在搜索中被关闭"
+, "ui_included_extensions": {
+    "message": "会被禁用的扩展："
   }
-, "ui_exceptions": {
-    "message": "从搜索中除外"
+, "ui_excluded_extensions": {
+    "message": "不会被禁用的扩展："
   }
-, "notification_zero": {
-    "message": "可搜索的扩展数目为零."
+, "dialog_no_extensions": {
+    "message": "没有可搜索的扩展程序。"
   }
-, "notification_confirm": {
-    "message": "请手动测试你要搜索的扩展程序是否仍有正在运行的特征, 根据结果选择对应的选项."
+, "dialog_confirm": {
+    "message": "请您手动测试相应扩展程序是否仍在运行，根据结果选择对应的选项。"
   }
-, "notification_still_running": {
+, "dialog_still_running_button": {
     "message": "仍在运行"
   }
-, "notification_not_running": {
+, "dialog_not_running_button": {
     "message": "不在运行"
   }
-, "notification_result": {
+, "dialog_result": {
     "message": "搜索结果为"
   }
-, "notification_end": {
+, "dialog_end": {
     "message": "结束"
   }
-, "notification_recovering": {
-    "message": "正在恢复"
+, "dialog_being_enabled": {
+    "message": "正在重新启用扩展。"
   }
-, "notification_closing": {
-    "message": "正在关闭"
+, "dialog_being_disabled": {
+    "message": "正在禁用扩展。"
   }
-, "notification_unkown_error": {
+, "dialog_unkown_error": {
     "message": "发生未知错误"
   }
 }
