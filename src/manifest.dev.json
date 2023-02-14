@@ -28,7 +28,6 @@
   }
 , "permissions": [
     "management"
-  , "tabs"
   , "storage"
   ]
 , "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxXzV8IEuErgWAay3jPBjAGpMpNLQs7po89c41Jx3vZxdpIMusmCE9kaDxMXdaxwEJBFIGLlapqXwxZDjYIf92yB63K83pcBI61QW+nTcauvMzW71rmBZm4jNOeWeAxa6n72dj3yevJXAKExgHmT0vQ6RFz7O73hGam6xYCIzoEy5cbbDg1xemaLcwY2DeQOektO80F5CxojA8J3+rvVvCubunDLToGpR7LoUTYZpu0tk//EEVqXeASfTetjBQdOOjmpb5VHq1SLF9GycbSKmp5a8o2DZaTcJW39yF3ZB6HdtTcQIrCgVBApNOCLMxjVQwcKlObycIMrmvECmqIIRYQIDAQAB"

@@ -28,7 +28,6 @@
   }
 , "permissions": [
     "management"
-  , "tabs"
   , "storage"
   ]
 }
