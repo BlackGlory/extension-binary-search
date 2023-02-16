@@ -7,8 +7,10 @@ The easiest and most effective way to locate a malicious or buggy extension.
 
 ## Supported browsers and platforms
 - [x] [Chrome]
+- [x] [Edge]
 
 [Chrome]: https://chrome.google.com/webstore/detail/pokongmehfnlmmkgppngbmagkpamckgi
+[Edge]: https://microsoftedge.microsoft.com/addons/detail/obkepmhpomploofncaigoehcebkkiiih
 
 ## Usage
 This extension is used to assist in locating malicious or buggy extensions. After you click the Start button, the following steps will be performed.
