@@ -1724,6 +1724,14 @@ extra-react-hooks@^0.4.3:
     justypes "^4.1.0"
     rxjs "^7.8.0"
 
+extra-semver@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/extra-semver/-/extra-semver-0.2.1.tgz#1ebf92d51fae04323180c6cda54533b229c9d5cf"
+  integrity sha512-MUoe5ouy4qy3MTDCvahLanFZQ8ykKGb01ftT7vjLdDgEAopf2cfHCJUIDQe407f8p8kpNt6TYze9FNmpo4YonQ==
+  dependencies:
+    "@blackglory/errors" "^2.3.0"
+    semver "^7.3.8"
+
 extra-timers@^0.2.5:
   version "0.2.5"
   resolved "https://registry.yarnpkg.com/extra-timers/-/extra-timers-0.2.5.tgz#5b0bac06b111cfa1afbc1b991e1362dfe2db4617"

@@ -1,10 +1,13 @@
 import browser from 'webextension-polyfill'
-import semver from 'semver'
+import { createMigration } from 'extra-semver'
 import { IExtension } from '@src/contract'
 import { pipe } from 'extra-utils'
-import { assert, Awaitable } from '@blackglory/prelude'
+import { assert } from '@blackglory/prelude'
 
-export async function migrate(previousVersion: string, expectedVersion: string): Promise<void> {
+export async function migrate(
+  previousVersion: string
+, expectedVersion: string
+): Promise<void> {
   const actualVersion = await pipe(
     previousVersion
   , createMigration('^1.0.0', '2.0.0', async () => {
@@ -26,19 +29,4 @@ export async function migrate(previousVersion: string, expectedVersion: string):
   )
 
   assert(actualVersion === expectedVersion, 'Migration failed')
-}
-
-function createMigration(
-  semverCondition: string
-, resultVersion: string
-, fn: () => Awaitable<void>
-): (currentVersion: string) => Promise<string> {
-  return async (currentVersion: string): Promise<string> => {
-    if (semver.satisfies(currentVersion, semverCondition)) {
-      await fn()
-      return resultVersion
-    } else {
-      return currentVersion
-    }
-  }
 }
