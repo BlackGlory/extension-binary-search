@@ -1763,6 +1763,14 @@ extra-utils@^5.0.1:
     justypes "^4.1.0"
     lodash-es "^4.17.21"
 
+extra-utils@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/extra-utils/-/extra-utils-5.1.0.tgz#f5520a3b2cd5a7e3b6a1049f01d6173a244a357e"
+  integrity sha512-CvskUlZyqdHzKqLYu+JhcmotjzTss14UODUqoobpqwAkswIFYL2sHXnasb/Lw/pSssd2jw6BI2sjArdJ/jNjfw==
+  dependencies:
+    justypes "^4.1.0"
+    lodash-es "^4.17.21"
+
 fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"

@@ -53,7 +53,7 @@
     "extra-promise": "^6.0.3",
     "extra-react-hooks": "^0.4.3",
     "extra-semver": "^0.2.1",
-    "extra-utils": "^5.0.1",
+    "extra-utils": "^5.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "webextension-polyfill": "^0.10.0"

@@ -1,14 +1,14 @@
 import browser from 'webextension-polyfill'
 import { createMigration } from 'extra-semver'
 import { IExtension } from '@src/contract'
-import { pipe } from 'extra-utils'
+import { pipeAsync } from 'extra-utils'
 import { assert } from '@blackglory/prelude'
 
 export async function migrate(
   previousVersion: string
 , expectedVersion: string
 ): Promise<void> {
-  const actualVersion = await pipe(
+  const actualVersion = await pipeAsync(
     previousVersion
   , createMigration('^1.0.0', '2.0.0', async () => {
       const OLD_STORAGE_ITEM_KEY_EXCLUDED_EXTENSIONS = 'exceptions'
