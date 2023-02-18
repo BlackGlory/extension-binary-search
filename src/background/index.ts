@@ -10,9 +10,8 @@ import { AbortController, withAbortSignal, AbortError } from 'extra-abort'
 import { migrate } from './migrate'
 
 browser.runtime.onInstalled.addListener(async ({ reason, previousVersion }) => {
-  const currentVersion = browser.runtime.getManifest().version
   if (reason === 'update' && previousVersion) {
-    await migrate(previousVersion, currentVersion)
+    await migrate(previousVersion)
   }
 })
 
