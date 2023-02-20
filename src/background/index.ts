@@ -155,14 +155,14 @@ async function disableExtension(id: string): Promise<void> {
 }
 
 async function loadExcludedExtensions(): Promise<IExtension[]> {
-  const data = await browser.storage.sync.get(STORAGE_ITEM_KEY_EXCLUDED_EXTENSIONS) as {
+  const data = await browser.storage.local.get(STORAGE_ITEM_KEY_EXCLUDED_EXTENSIONS) as {
     [STORAGE_ITEM_KEY_EXCLUDED_EXTENSIONS]: IExtension[] | undefined
   }
   return data[STORAGE_ITEM_KEY_EXCLUDED_EXTENSIONS] ?? []
 }
 
 async function saveExcludedExtensions(excludedExtensions: IExtension[]): Promise<null> {
-  await browser.storage.sync.set({
+  await browser.storage.local.set({
     [STORAGE_ITEM_KEY_EXCLUDED_EXTENSIONS]: excludedExtensions
   })
   return null
