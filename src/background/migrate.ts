@@ -23,14 +23,6 @@ export async function migrate(previousVersion: string): Promise<void> {
       }
     })
   , createMigration('2.0.0 || 2.0.1', '2.0.2', async () => {
-      enum StorageItemKey {
-        ExcludedExtensions = 'excludedExtensions'
-      }
-
-      interface IStorage {
-        [StorageItemKey.ExcludedExtensions]: IExtension[]
-      }
-
       // sync => local
       {
         const storage = await browser.storage.sync.get()
@@ -40,10 +32,24 @@ export async function migrate(previousVersion: string): Promise<void> {
 
       // Make sure storage is initialized
       {
-        const storage: Partial<IStorage> = await browser.storage.local.get(StorageItemKey)
-        await browser.storage.local.set({
-          [StorageItemKey.ExcludedExtensions]: storage[StorageItemKey.ExcludedExtensions] ?? []
-        })
+        enum StorageItemKey {
+          ExcludedExtensions = 'excludedExtensions'
+        }
+
+        interface IOldStorage {
+          [StorageItemKey.ExcludedExtensions]?: IExtension[]
+        }
+
+        interface INewStorage {
+          [StorageItemKey.ExcludedExtensions]: IExtension[]
+        }
+
+        const oldStorage: IOldStorage = await browser.storage.local.get(StorageItemKey)
+        const newStorage: INewStorage = {
+          [StorageItemKey.ExcludedExtensions]:
+            oldStorage[StorageItemKey.ExcludedExtensions] ?? []
+        }
+        await browser.storage.local.set(newStorage)
       }
     })
   )
