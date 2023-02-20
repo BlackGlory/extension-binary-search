@@ -44,7 +44,7 @@ export async function migrate(previousVersion: string): Promise<void> {
           [StorageItemKey.ExcludedExtensions]: IExtension[]
         }
 
-        const oldStorage: IOldStorage = await browser.storage.local.get(StorageItemKey)
+        const oldStorage: IOldStorage = await browser.storage.local.get(StorageItemKey.ExcludedExtensions)
         const newStorage: INewStorage = {
           [StorageItemKey.ExcludedExtensions]:
             oldStorage[StorageItemKey.ExcludedExtensions] ?? []

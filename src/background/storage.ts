@@ -10,7 +10,7 @@ export async function initStorage(): Promise<void> {
 }
 
 export async function loadExcludedExtensions(): Promise<IExtension[]> {
-  const storage = await browser.storage.local.get(StorageItemKey) as Pick<
+  const storage = await browser.storage.local.get(StorageItemKey.ExcludedExtensions) as Pick<
     IStorage
   , StorageItemKey.ExcludedExtensions
   >
