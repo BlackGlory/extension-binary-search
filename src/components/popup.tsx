@@ -18,7 +18,7 @@ export function Popup() {
 
   useMount(() => {
     go(async () => {
-      const excludeExtensions = await client.loadExcludedExtensions()
+      const excludeExtensions = await client.getExcludedExtensions()
       const controllableExtensions = (await getAllManageableExtensions())
         .map(x => ({ id: x.id, name: x.name })) as IExtension[]
 
@@ -112,7 +112,7 @@ export function Popup() {
     ]
     setExcludedExtensions(newExcludedExtensions)
 
-    await client.saveExcludedExtensions(newExcludedExtensions)
+    await client.setExcludedExtensions(newExcludedExtensions)
   }
 
   async function moveExcludedToIncluded(): Promise<void> {
@@ -129,7 +129,7 @@ export function Popup() {
     ]
     setIncludedExtensions(newIncludedExtensions)
 
-    await client.saveExcludedExtensions(newExcludedExtensions)
+    await client.setExcludedExtensions(newExcludedExtensions)
   }
 
   async function search(): Promise<void> {

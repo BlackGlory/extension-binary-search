@@ -7,11 +7,11 @@ export async function initStorage(): Promise<void> {
   await localStorage.setItem(StorageItemKey.ExcludedExtensions, [])
 }
 
-export async function loadExcludedExtensions(): Promise<IExtension[]> {
+export async function getExcludedExtensions(): Promise<IExtension[]> {
   return await localStorage.getItem(StorageItemKey.ExcludedExtensions)
 }
 
-export async function saveExcludedExtensions(
+export async function setExcludedExtensions(
   excludedExtensions: IExtension[]
 ): Promise<null> {
   await localStorage.setItem(StorageItemKey.ExcludedExtensions, excludedExtensions)

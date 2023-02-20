@@ -13,8 +13,8 @@ export interface IExtension {
 
 export interface IBackgroundAPI {
   searchExtension(): null
-  loadExcludedExtensions(): IExtension[]
-  saveExcludedExtensions(excludedExtensions: IExtension[]): null
+  getExcludedExtensions(): IExtension[]
+  setExcludedExtensions(excludedExtensions: IExtension[]): null
 }
 
 export interface IDialogAPI {

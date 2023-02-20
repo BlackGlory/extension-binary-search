@@ -8,7 +8,7 @@ import { createTabClient, createServer } from '@delight-rpc/webextension'
 import { IBackgroundAPI, IDialogAPI, IExtension } from '@src/contract'
 import { AbortController, withAbortSignal, AbortError } from 'extra-abort'
 import { migrate } from './migrate'
-import { initStorage, loadExcludedExtensions, saveExcludedExtensions } from './storage'
+import { initStorage, getExcludedExtensions, setExcludedExtensions } from './storage'
 
 browser.runtime.onInstalled.addListener(async ({ reason, previousVersion }) => {
   switch (reason) {
@@ -27,8 +27,8 @@ browser.runtime.onInstalled.addListener(async ({ reason, previousVersion }) => {
 
 createServer<IBackgroundAPI>({
   searchExtension
-, loadExcludedExtensions
-, saveExcludedExtensions
+, getExcludedExtensions
+, setExcludedExtensions
 })
 
 async function searchExtension(): Promise<null> {
@@ -61,7 +61,7 @@ async function searchExtension(): Promise<null> {
   }))
   const client = createTabClient<IDialogAPI>({ tabId })
 
-  const excludedExtensions: IExtension[] = await loadExcludedExtensions()
+  const excludedExtensions: IExtension[] = await getExcludedExtensions()
   const includedExtensions: browser.Management.ExtensionInfo[] = (
     await getAllManageableExtensions()
   )
