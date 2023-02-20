@@ -1,3 +1,11 @@
+export enum StorageItemKey {
+  ExcludedExtensions = 'excludedExtensions'
+}
+
+export interface IStorage {
+  [StorageItemKey.ExcludedExtensions]: IExtension[]
+}
+
 export interface IExtension {
   name: string
   id: string

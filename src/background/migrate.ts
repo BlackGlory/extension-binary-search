@@ -23,10 +23,28 @@ export async function migrate(previousVersion: string): Promise<void> {
       }
     })
   , createMigration('2.0.0 || 2.0.1', '2.0.2', async () => {
+      enum StorageItemKey {
+        ExcludedExtensions = 'excludedExtensions'
+      }
+
+      interface IStorage {
+        [StorageItemKey.ExcludedExtensions]: IExtension[]
+      }
+
       // sync => local
-      const storage = await browser.storage.sync.get()
-      await browser.storage.local.set(storage)
-      await browser.storage.sync.clear()
+      {
+        const storage = await browser.storage.sync.get()
+        await browser.storage.local.set(storage)
+        await browser.storage.sync.clear()
+      }
+
+      // Make sure storage is initialized
+      {
+        const storage: Partial<IStorage> = await browser.storage.local.get(StorageItemKey)
+        await browser.storage.local.set({
+          [StorageItemKey.ExcludedExtensions]: storage[StorageItemKey.ExcludedExtensions] ?? []
+        })
+      }
     })
   )
 }

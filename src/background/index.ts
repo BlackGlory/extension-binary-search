@@ -8,14 +8,22 @@ import { createTabClient, createServer } from '@delight-rpc/webextension'
 import { IBackgroundAPI, IDialogAPI, IExtension } from '@src/contract'
 import { AbortController, withAbortSignal, AbortError } from 'extra-abort'
 import { migrate } from './migrate'
+import { initStorage, loadExcludedExtensions, saveExcludedExtensions } from './storage'
 
 browser.runtime.onInstalled.addListener(async ({ reason, previousVersion }) => {
-  if (reason === 'update' && previousVersion) {
-    await migrate(previousVersion)
+  switch (reason) {
+    case 'install': {
+      await initStorage()
+      break
+    }
+    case 'update': {
+      if (previousVersion) {
+        await migrate(previousVersion)
+      }
+      break
+    }
   }
 })
-
-const STORAGE_ITEM_KEY_EXCLUDED_EXTENSIONS = 'excludedExtensions'
 
 createServer<IBackgroundAPI>({
   searchExtension
@@ -152,18 +160,4 @@ async function enableExtension(id: string): Promise<void> {
 
 async function disableExtension(id: string): Promise<void> {
   await setExtensionState(id, false)
-}
-
-async function loadExcludedExtensions(): Promise<IExtension[]> {
-  const data = await browser.storage.local.get(STORAGE_ITEM_KEY_EXCLUDED_EXTENSIONS) as {
-    [STORAGE_ITEM_KEY_EXCLUDED_EXTENSIONS]: IExtension[] | undefined
-  }
-  return data[STORAGE_ITEM_KEY_EXCLUDED_EXTENSIONS] ?? []
-}
-
-async function saveExcludedExtensions(excludedExtensions: IExtension[]): Promise<null> {
-  await browser.storage.local.set({
-    [STORAGE_ITEM_KEY_EXCLUDED_EXTENSIONS]: excludedExtensions
-  })
-  return null
 }
