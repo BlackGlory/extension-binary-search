@@ -1,26 +1,19 @@
-import browser from 'webextension-polyfill'
 import { IExtension, IStorage, StorageItemKey } from '@src/contract'
+import { LocalStorage } from 'extra-webextension'
+
+const localStorage = new LocalStorage<IStorage>()
 
 export async function initStorage(): Promise<void> {
-  const storage: IStorage = {
-    [StorageItemKey.ExcludedExtensions]: []
-  }
-
-  await browser.storage.local.set(storage)
+  await localStorage.setItem(StorageItemKey.ExcludedExtensions, [])
 }
 
 export async function loadExcludedExtensions(): Promise<IExtension[]> {
-  const storage = await browser.storage.local.get(StorageItemKey.ExcludedExtensions) as Pick<
-    IStorage
-  , StorageItemKey.ExcludedExtensions
-  >
-
-  return storage[StorageItemKey.ExcludedExtensions]
+  return await localStorage.getItem(StorageItemKey.ExcludedExtensions)
 }
 
-export async function saveExcludedExtensions(excludedExtensions: IExtension[]): Promise<null> {
-  await browser.storage.local.set({
-    [StorageItemKey.ExcludedExtensions]: excludedExtensions
-  })
+export async function saveExcludedExtensions(
+  excludedExtensions: IExtension[]
+): Promise<null> {
+  await localStorage.setItem(StorageItemKey.ExcludedExtensions, excludedExtensions)
   return null
 }
