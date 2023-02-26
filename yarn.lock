@@ -1771,11 +1771,12 @@ extra-utils@^5.1.0:
     justypes "^4.1.0"
     lodash-es "^4.17.21"
 
-extra-webextension@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/extra-webextension/-/extra-webextension-0.2.2.tgz#34d1c708498c5f611b4f3a373d698086a7ad57c6"
-  integrity sha512-B+VFKSovcMMfge8Z5PraOuGXhHxGc7MmOO/J0Yo/GEZILyHUmSwPTu5gD/laUUPVx705VSeppQP448xrQkH4UA==
+extra-webextension@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/extra-webextension/-/extra-webextension-0.3.0.tgz#86547c5a1dee179ef004d0bf22f4e874135e0fa0"
+  integrity sha512-H8aOmEA/bwfqv0wR7BhBRoxVoAAtpPGwmZUPVylPOLRu5VfDFeJlUAABIHutSC40gjhjiWStymW2uU8aisoPHg==
   dependencies:
+    "@blackglory/prelude" "^0.3.1"
     webextension-polyfill "^0.10.0"
 
 fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:

@@ -9,26 +9,25 @@ import { IBackgroundAPI, IDialogAPI, IExtension } from '@src/contract'
 import { AbortController, withAbortSignal, AbortError } from 'extra-abort'
 import { migrate } from './migrate'
 import { initStorage, getExcludedExtensions, setExcludedExtensions } from './storage'
+import { waitForLaunch, LaunchReason } from 'extra-webextension'
 
-browser.runtime.onInstalled.addListener(async ({ reason, previousVersion }) => {
-  switch (reason) {
-    case 'install': {
+waitForLaunch().then(async details => {
+  switch (details.reason) {
+    case LaunchReason.Install: {
       await initStorage()
       break
     }
-    case 'update': {
-      if (previousVersion) {
-        await migrate(previousVersion)
-      }
+    case LaunchReason.Update: {
+      await migrate(details.previousVersion)
       break
     }
   }
-})
 
-createServer<IBackgroundAPI>({
-  searchExtension
-, getExcludedExtensions
-, setExcludedExtensions
+  createServer<IBackgroundAPI>({
+    searchExtension
+  , getExcludedExtensions
+  , setExcludedExtensions
+  })
 })
 
 async function searchExtension(): Promise<null> {
