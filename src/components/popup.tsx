@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from 'react'
+import { forwardRef, useState, useRef, useMemo } from 'react'
 import { useMount } from 'extra-react-hooks'
 import { go, toArray } from '@blackglory/prelude'
 import { getAllManageableExtensions } from '@utils/extension'
@@ -142,10 +142,10 @@ export function Popup() {
   }
 }
 
-const Select = React.forwardRef((
+const Select = forwardRef(function Select(
   props: React.SelectHTMLAttributes<HTMLSelectElement>
 , ref: React.ForwardedRef<HTMLSelectElement>
-) => {
+) {
   return (
     <select
       {...props}
