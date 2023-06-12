@@ -143,7 +143,7 @@ export function Popup() {
 }
 
 const Select = forwardRef(function Select(
-  props: React.SelectHTMLAttributes<HTMLSelectElement>
+  props: React.ComponentPropsWithoutRef<'select'>
 , ref: React.ForwardedRef<HTMLSelectElement>
 ) {
   return (
@@ -155,11 +155,12 @@ const Select = forwardRef(function Select(
   )
 })
 
-function Column(props: React.HTMLAttributes<HTMLDivElement>) {
+function Column(props: React.ComponentPropsWithoutRef<'div'>) {
   return (
     <div
       {...props}
-      className={classNames('flex flex-col flex-1', props.className)}
+      className={classNames('flex flex-col flex-1', props.className)
+      }
     />
   )
 }
