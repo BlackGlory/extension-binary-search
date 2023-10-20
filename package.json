@@ -53,6 +53,7 @@
     "delight-rpc": "^6.1.2",
     "extra-abort": "^0.3.7",
     "extra-promise": "^6.0.8",
+    "extra-proxy": "^0.4.1",
     "extra-react-hooks": "^0.6.3",
     "extra-semver": "^0.2.2",
     "extra-utils": "^5.5.1",

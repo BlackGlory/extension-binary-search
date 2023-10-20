@@ -1,15 +1,41 @@
 import browser from 'webextension-polyfill'
 import { assert, isError, isntUndefined } from '@blackglory/prelude'
-import { each } from 'extra-promise'
+import { each, Deferred } from 'extra-promise'
+import { applyPropertyDecorators } from 'extra-proxy'
 import { getAllManageableExtensions } from '@utils/extension'
 import { splitArrayInHalf } from '@utils/split-array-in-half'
 import { i18n } from '@utils/i18n'
+import { ImplementationOf } from 'delight-rpc'
 import { createTabClient, createServer } from '@delight-rpc/webextension'
 import { IBackgroundAPI, IDialogAPI, IExtension } from '@src/contract'
 import { AbortController, withAbortSignal, AbortError } from 'extra-abort'
 import { migrate } from './migrate'
 import { initStorage, getExcludedExtensions, setExcludedExtensions } from './storage'
 import { waitForLaunch, LaunchReason } from 'extra-webextension'
+
+const launched = new Deferred<void>()
+
+const api: ImplementationOf<IBackgroundAPI> = {
+  searchExtension
+, getExcludedExtensions
+, setExcludedExtensions
+}
+
+// 确保尽早启动服务器, 以免拒绝来自客户端的连接, 造成功能失效.
+createServer<IBackgroundAPI>(
+  applyPropertyDecorators(
+    api
+  , Object.keys(api) as Array<keyof IBackgroundAPI>
+  , (fn: (...args: unknown[]) => unknown) => {
+      return async function (...args: unknown[]): Promise<unknown> {
+        // 等待初始化/迁移执行完毕
+        await launched
+
+        return await fn(...args)
+      }
+    }
+  ) as ImplementationOf<IBackgroundAPI>
+)
 
 waitForLaunch().then(async details => {
   switch (details.reason) {
@@ -23,11 +49,7 @@ waitForLaunch().then(async details => {
     }
   }
 
-  createServer<IBackgroundAPI>({
-    searchExtension
-  , getExcludedExtensions
-  , setExcludedExtensions
-  })
+  launched.resolve()
 })
 
 async function searchExtension(): Promise<null> {
