@@ -1,4 +1,3 @@
-import browser from 'webextension-polyfill'
 import { assert, isError, isntUndefined } from '@blackglory/prelude'
 import { each, Deferred } from 'extra-promise'
 import { applyPropertyDecorators } from 'extra-proxy'
@@ -56,8 +55,8 @@ async function searchExtension(): Promise<null> {
   const controller = new AbortController()
   const signal = controller.signal
 
-  const window = await browser.windows.create({
-    url: browser.runtime.getURL('dialog.html')
+  const window = await chrome.windows.create({
+    url: chrome.runtime.getURL('dialog.html')
   , type: 'popup'
   , width: 450
   , height: 250
@@ -65,17 +64,17 @@ async function searchExtension(): Promise<null> {
   const tabId = window.tabs?.[0].id
   assert(isntUndefined(tabId), 'The dialog tab does not exist')
 
-  browser.windows.onRemoved.addListener(function windowRemovedHandler(windowId) {
+  chrome.windows.onRemoved.addListener(function windowRemovedHandler(windowId) {
     if (windowId === window.id) {
-      browser.windows.onRemoved.removeListener(windowRemovedHandler)
+      chrome.windows.onRemoved.removeListener(windowRemovedHandler)
       controller.abort('The interactive window is closed')
     }
   })
 
   await withAbortSignal(signal, () => new Promise<void>(resolve => {
-    browser.runtime.onMessage.addListener(function pingHandler(message, sender) {
+    chrome.runtime.onMessage.addListener(function pingHandler(message, sender) {
       if (sender.tab?.id === tabId && message === 'ping') {
-        browser.runtime.onMessage.removeListener(pingHandler)
+        chrome.runtime.onMessage.removeListener(pingHandler)
         resolve()
       }
     })
@@ -83,7 +82,7 @@ async function searchExtension(): Promise<null> {
   const client = createTabClient<IDialogAPI>({ tabId })
 
   const excludedExtensions: IExtension[] = await getExcludedExtensions()
-  const includedExtensions: browser.Management.ExtensionInfo[] = (
+  const includedExtensions: chrome.management.ExtensionInfo[] = (
     await getAllManageableExtensions()
   )
     .filter(x => x.enabled)
@@ -165,14 +164,14 @@ async function searchExtension(): Promise<null> {
     , 1
     )
     // 由于标签页可能被用户手动关闭, 调用有可能抛出错误, 所以放到最后执行.
-    await browser.tabs.remove(tabId)
+    await chrome.tabs.remove(tabId)
   }
 
   return null
 }
 
 async function setExtensionState(id: string, enabled: boolean): Promise<void> {
-  await browser.management.setEnabled(id, enabled)
+  await chrome.management.setEnabled(id, enabled)
 }
 
 async function enableExtension(id: string): Promise<void> {

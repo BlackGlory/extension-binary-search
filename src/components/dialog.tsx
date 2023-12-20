@@ -1,4 +1,3 @@
-import browser from 'webextension-polyfill'
 import { useState } from 'react'
 import { createServer } from '@delight-rpc/webextension'
 import { IDialogAPI } from '@src/contract'
@@ -31,7 +30,7 @@ export function Dialog() {
     , confirm
     , progress
     })
-    browser.runtime.sendMessage('ping')
+    chrome.runtime.sendMessage('ping')
     return closeServer
   })
 
