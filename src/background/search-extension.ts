@@ -1,4 +1,4 @@
-import { assert, isError, isntUndefined } from '@blackglory/prelude'
+import { assert, isError, isntUndefined, toString } from '@blackglory/prelude'
 import { each } from 'extra-promise'
 import { getAllManageableExtensions } from '@utils/extension'
 import { splitArrayInHalf } from '@utils/split-array-in-half'
@@ -102,14 +102,14 @@ export async function searchExtension(): Promise<null> {
     if (isError(e)) {
       const err = e
 
-      if (!(e instanceof AbortError)) {
+      if (e instanceof AbortError) {
+        console.warn(e)
+      } else {
         await withAbortSignal(signal, () => client.message({
           title: i18n('dialog_unkown_error')
-        , text: `${err.message}`
+        , text: toString(err.message)
         , buttonText: i18n('dialog_end')
         }))
-      } else {
-        console.warn(e)
       }
     } else {
       console.warn(e)
