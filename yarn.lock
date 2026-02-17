@@ -2216,6 +2216,13 @@ extra-semver@^0.2.2:
     "@blackglory/errors" "^2.3.0"
     semver "^7.3.8"
 
+extra-tags@^0.5.4:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/extra-tags/-/extra-tags-0.5.4.tgz#74e0d282fe881c95e58b82095eb1d0f76df89079"
+  integrity sha512-la5n78qvNOVaS16VVJvUkFcmlaLENOzN0DkTgm8YBYr3xgc2Yhap5brMmZrOE2WfP4cPQfxFBdSJQUuxHwrElw==
+  dependencies:
+    extra-utils "^5.16.0"
+
 extra-timers@^0.2.5:
   version "0.2.5"
   resolved "https://registry.yarnpkg.com/extra-timers/-/extra-timers-0.2.5.tgz#5b0bac06b111cfa1afbc1b991e1362dfe2db4617"
@@ -2266,6 +2273,14 @@ extra-utils@^5.1.1, extra-utils@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/extra-utils/-/extra-utils-5.2.0.tgz#2bb98f46a938610e00e37633885df98e306dd836"
   integrity sha512-pDRPtYvMrwWeZMVRuSRx/EdOCdE0+FRV+asHLKd2ASwfodn+W5VeMRjrVstQXwVO/EYruGGdyj6MjbFSYcvGSQ==
+  dependencies:
+    justypes "^4.2.0"
+    lodash-es "^4.17.21"
+
+extra-utils@^5.16.0:
+  version "5.20.0"
+  resolved "https://registry.yarnpkg.com/extra-utils/-/extra-utils-5.20.0.tgz#ae1b2cba863700933b7ce3bd013b73915f9c1841"
+  integrity sha512-cZm0kiCeOT05fXYHctD1mFYmaSkPtGFEmvuG0Fa+WfhMH8u6jle8pvGcjU10I3wW91dnV36nJKWum8QLDTwhOQ==
   dependencies:
     justypes "^4.2.0"
     lodash-es "^4.17.21"

@@ -7,6 +7,7 @@ import { createTabClient } from '@delight-rpc/webextension'
 import { IDialogAPI, IExtension } from '@src/contract'
 import { AbortController, withAbortSignal, AbortError } from 'extra-abort'
 import { getExcludedExtensions } from './storage'
+import { dedent } from 'extra-tags'
 
 export async function searchExtension(): Promise<null> {
   const controller = new AbortController()
@@ -64,7 +65,10 @@ export async function searchExtension(): Promise<null> {
         await each(extensionGroupA, async ({ id, name }, i) => {
           await disableExtension(id)
           await client.progress({
-            text: `${i18n('dialog_being_disabled')}${name}`
+            text: dedent`
+              ${i18n('dialog_being_disabled')}
+              ${name}
+            `
           , value: (i + 1) / extensionGroupA.length
           })
         }, 1)
@@ -84,7 +88,10 @@ export async function searchExtension(): Promise<null> {
           await each(extensionGroupA, async ({ id, name }, i) => {
             await enableExtension(id)
             await client.progress({
-              text: `${i18n('dialog_being_enabled')}${name}`
+              text: dedent`
+                ${i18n('dialog_being_enabled')}
+                ${name}
+              `
             , value: (i + 1) / extensionGroupA.length
             })
           }, 1)

@@ -1,4 +1,5 @@
 import { isntUndefined } from '@blackglory/prelude'
+import { Text } from '@components/text'
 
 export interface IProgressProps {
   title?: string
@@ -18,7 +19,9 @@ export function Progress(props: IProgressProps) {
     }
     {
       isntUndefined(text) && (
-        <div>{text}</div>
+        <div>
+          <Text>{text}</Text>
+        </div>
       )
     }
     <progress className='w-full' value={value} />

@@ -1,5 +1,6 @@
 import { isntUndefined } from '@blackglory/prelude'
 import { Button } from '@components/button'
+import { Text } from '@components/text'
 
 export interface IConfirmBoxProps {
   title?: string
@@ -16,8 +17,18 @@ export function ConfirmBox(props: IConfirmBoxProps) {
   const { title, text, button1Text, button2Text, onButton1Click, onButton2Click } = props
 
   return <>
-    {isntUndefined(title) && <h1 className='text-lg font-semibold border-b'>{title}</h1>}
-    {isntUndefined(text) && <div>{text}</div>}
+    {
+      isntUndefined(title) && (
+        <h1 className='text-lg font-semibold border-b'>{title}</h1>
+      )
+    }
+    {
+      isntUndefined(text) && (
+        <div>
+          <Text>{text}</Text>
+        </div>
+      )
+    }
     <div className='flex flex-row space-x-2'>
       <div className='flex-1'>
         <Button onClick={onButton1Click}>

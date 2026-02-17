@@ -1,5 +1,6 @@
 import { isntUndefined } from '@blackglory/prelude'
 import { Button } from '@components/button'
+import { Text } from '@components/text'
 
 export interface IMessageBoxProps {
   title?: string
@@ -20,7 +21,9 @@ export function MessageBox(props: IMessageBoxProps) {
     }
     {
       isntUndefined(text) && (
-        <div>{text}</div>
+        <div>
+          <Text>{text}</Text>
+        </div>
       )
     }
     <div className='flex'>

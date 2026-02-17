@@ -56,6 +56,7 @@
     "extra-proxy": "^0.4.1",
     "extra-react-hooks": "^0.6.5",
     "extra-semver": "^0.2.2",
+    "extra-tags": "^0.5.4",
     "extra-utils": "^5.5.2",
     "extra-webextension": "^0.4.0",
     "react": "^18.2.0",
