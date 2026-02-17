@@ -48,10 +48,10 @@
     "message": "End"
   }
 , "dialog_being_enabled": {
-    "message": "Extensions are being re-enabled."
+    "message": "Extensions are being re-enabled: "
   }
 , "dialog_being_disabled": {
-    "message": "Extensions are being disabled."
+    "message": "Extensions are being disabled: "
   }
 , "dialog_unkown_error": {
     "message": "An unknown error has occurred"

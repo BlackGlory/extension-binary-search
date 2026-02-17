@@ -13,8 +13,16 @@ export function MessageBox(props: IMessageBoxProps) {
   const { title, text, buttonText, onButtonClick } = props
 
   return <>
-    {isntUndefined(title) && <h1 className='text-lg font-semibold border-b'>{title}</h1>}
-    {isntUndefined(text) && <div>{text}</div>}
+    {
+      isntUndefined(title) && (
+        <h1 className='text-lg font-semibold border-b'>{title}</h1>
+      )
+    }
+    {
+      isntUndefined(text) && (
+        <div>{text}</div>
+      )
+    }
     <div className='flex'>
       <Button onClick={onButtonClick}>
         {buttonText}

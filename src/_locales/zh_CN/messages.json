@@ -48,10 +48,10 @@
     "message": "结束"
   }
 , "dialog_being_enabled": {
-    "message": "正在重新启用扩展。"
+    "message": "正在重新启用扩展："
   }
 , "dialog_being_disabled": {
-    "message": "正在禁用扩展。"
+    "message": "正在禁用扩展："
   }
 , "dialog_unkown_error": {
     "message": "发生未知错误"
