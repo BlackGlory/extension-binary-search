@@ -1,3 +1,3 @@
 export function Blank() {
-  return <></>
+  return null
 }
